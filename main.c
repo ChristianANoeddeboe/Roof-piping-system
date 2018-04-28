@@ -141,6 +141,7 @@ segment initSegment() {
     int input[4];
     scanf("%d %d %d %d", &input[0], &input[1], &input[2], &input[3]);
     struct segment segment;
+
     segment.startx = input[0];
     segment.starty = input[1];
     segment.endx = input[2];
@@ -152,6 +153,7 @@ segment initSegment() {
         segment.falldir = 0;
     }
     segment.fallsOn = NULL;
+
     return segment;
 }
 
@@ -179,17 +181,21 @@ int main() {
 
     //First checks if any of the segments deliver water to another segment.
     findFallsOn(segments, length);
+
     //Second, checks if any segments receive less water, because it is blocked by another segment.
     findBlocked(segments, length);
+
     //Third, update each segments capacity, with regards to what falls on it from other segments.
     for (int i = 0 ; i < length ; i++) {
         if (segments[i].fallsOn) {
             segments[i].fallsOn->capacity += segments[i].capacity;
         }
     }
+
     //Last, print the capacity of each segment in order they were entered.
     for (int i = 0 ; i < length ; i++) {
         printf("%d\n", segments[i].capacity);
     }
+
     return 0;
 }
