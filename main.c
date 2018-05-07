@@ -71,7 +71,7 @@ void findBlocked(segment * segments, int length) {
         int original = segments[i].capacity;
         for (int j = 0 ; j < length ; j++) {
             if (j != i) {
-                int n = amountBlocked(segments[i], segments[i]);
+                int n = amountBlocked(segments[i], segments[j]);
                 if ((original - n) < segments[i].capacity) {
                     segments[i].capacity = (original - n);
                 }
@@ -167,7 +167,8 @@ int main() {
         segments[i] = initSegment();
     }
 
-    /* Used to test with. Value each segment should return is right of every line.
+    // Used to test with. Value each segment should return is right of every line.
+    /*
     int length = 6;
     segment segments[] = {
             {13, 7, 15, 6, 0, abs(13-15)},  //2
@@ -177,7 +178,13 @@ int main() {
             {6, 3, 8, 2, 0, abs(6-8)},      //0
             {9, 6, 12, 8, 1, abs(9-12)}     //3
     };
-    */
+    int length = 3;
+    segment segments[] = {
+            {3, 8, 7, 9, 1, abs(3-7)},  //2
+            {3, 6, 7, 7, 1, abs(3-7)},  //4
+            {1, 5, 3, 3, 0, abs(1-3)},  //2
+    };
+     */
 
     //First checks if any of the segments deliver water to another segment.
     findFallsOn(segments, length);
